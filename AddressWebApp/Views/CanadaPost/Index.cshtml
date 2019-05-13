@@ -1,0 +1,84 @@
+﻿<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://ws1.postescanada-canadapost.ca/css/addresscomplete-2.30.min.css?key=mc82-bz64-rw92-xr71" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap-grid.css" />
+    <script type="text/javascript" src="http://ws1.postescanada-canadapost.ca/js/addresscomplete-2.30.min.js?key=mc82-bz64-rw92-xr71"></script>
+    <script>
+        $(document).ready(function () {
+            //$('#productName').autocomplete({
+            //    source: '/api/product/search'
+            //});
+            var fields = [
+                { element: "productName", field: "", mode: pca.fieldMode.SEARCH },
+
+                { element: "street-address", field: "Line1", mode: pca.fieldMode.POPULATE },
+                { element: "street-address2", field: "Line2", mode: pca.fieldMode.POPULATE },
+                { element: "city", field: "City", mode: pca.fieldMode.POPULATE },
+                { element: "state", field: "ProvinceName", mode: pca.fieldMode.POPULATE },
+                { element: "postcode", field: "PostalCode" },
+                { element: "country", field: "CountryName", mode: pca.fieldMode.COUNTRY },
+                { element: "multi-unit", field: "{AcMua}", mode: pca.fieldMode.POPULATE },
+                { element: "residential-business", field: "{AcRbdi}", mode: pca.fieldMode.POPULATE }
+            ],
+                options = {
+                    key: "AA11-AA11-AA11-AA11"
+                },
+                control = new pca.Address(fields, options);
+        });
+
+        addressComplete.listen('load', function (control) {
+            control.listen("populate", function (address) {
+                document.getElementById("street-address").value = address.Line1;
+                document.getElementById("city").value = address.City;
+                document.getElementById("postcode").value = address.PostalCode;
+                document.getElementById("state").value = address.ProvinceName;
+                document.getElementById("country").value = address.CountryName;
+                var x = address.Location;
+            });
+        });
+
+    </script>
+</head>
+<body>
+
+    <h3>Canada Post Address Search</h3>
+    <form>
+        <div class="container">
+            <div class="input-line">
+                <label class="col-md-2"for="productName">Enter Postal Code:  </label>
+                <input class="col-md-4" type="text" id="productName" placeholder="Enter your postal code" />
+            </div>
+            <div class="input-line">
+                <label for="street-address">Street Address</label>
+                <input id="street-address" type="text" placeholder="Street address" autofocus />
+            </div>
+            <div class="input-line">
+                <label for="street-address2">Street Address 2</label>
+                <input id="street-address2" type="text" placeholder="" />
+            </div>
+            <div class="input-line">
+                <label for="city">City</label>
+                <input id="city" type="text" placeholder="City" />
+            </div>
+            <div class="input-line">
+                <label for="state">Province</label>
+                <input id="state" type="text" placeholder="State/Province" />
+            </div>
+            <div class="input-line">
+                <label for="postcode">Post Code</label>
+                <input id="postcode" type="text" placeholder="Zip/Postcode" />
+            </div>
+            <div class="input-line">
+                <label for="country">Country</label>
+                <input id="country" type="text" placeholder="Country" />
+            </div>
+        </div>
+    </form>
+
+</body>
+</html>
